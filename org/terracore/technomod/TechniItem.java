@@ -12,6 +12,7 @@ public class TechniItem extends Item{
 	protected TechniItem(int itemid) {
 		super(itemid);
 		this.setCreativeTab(TechnoMod.ctab);
+		this.setTextureFile(Assistant.ItemTextures);
 	}
 	
 	public void setHasEffect(boolean haseffect){

@@ -36,6 +36,7 @@ public class TechnoConfigurator {
 			// Item Ids
 			ItemIds[0] = Configs.get(Configs.CATEGORY_ITEM, "Debuggers Book", 1500).getInt(); // Debuggers Book
 			ItemIds[1] = Configs.get(Configs.CATEGORY_ITEM, "Circuits", 1501).getInt(); // Circuits (Uses meta data)
+			ItemIds[2] = Configs.get(Configs.CATEGORY_ITEM, "Screw Driver", 1502).getInt(); // Screw Driver
 			
 			// Block Ids
 			BlockIds[0] = Configs.get(Configs.CATEGORY_BLOCK, "Electric Bench", 600).getInt(); // Electric Bench

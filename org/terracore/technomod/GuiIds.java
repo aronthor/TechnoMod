@@ -9,5 +9,7 @@ public class GuiIds {
 	public static final int CHARGE_BOX = 3;
 	
 	public static final int SOLAR_PANEL = 4;
+
+	public static final int MachineBasic = 5;
 	
 }

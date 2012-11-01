@@ -17,6 +17,7 @@ public class Assistant {
 	public static final String ElectricBenchGui = folder+"ElectricBenchGui.png";
 	public static final String ChargeBoxGui = folder+"GuiChargeBox.png";
 	public static final String SolarPanelGui = folder+"GuiSolar.png";
+	public static final String BasicMachineGui = folder+"GuiBasicMachine.png";
 	
 	// Render Sprites
 	public static final String CableTexture = folder+"LvCable.png";

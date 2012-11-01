@@ -6,9 +6,11 @@ import net.minecraftforge.common.ForgeDirection;
 
 public class TileEntityLowTechSolarPanel extends TileEntity implements IPowerGenerator {
 
-	private int stored = 0;
+	public static int stored = 0;
 	
-	private IConnectable[] con;
+	private int lastUpdate = 0;
+	
+	private IConnectable[] con = {null, null, null, null, null, null};
 	
 	public TileEntityLowTechSolarPanel(){
 		TechnoMod.pn.addGenerator(this);
@@ -18,12 +20,35 @@ public class TileEntityLowTechSolarPanel extends TileEntity implements IPowerGen
 		
 	}
 	
+	public void updateConnections(){
+		if(lastUpdate > 10){
+			this.con = PowerNetwork.updateConnected(worldObj, xCoord, yCoord, zCoord);
+			lastUpdate = 0;
+		}
+		lastUpdate++;
+	}
+	
+	public int getStored(){
+		return stored;
+	}
+	
 	@Override
 	public void updateEntity(){
 		this.con = PowerNetwork.updateConnected(worldObj, xCoord, yCoord, zCoord);
 		
-		if(isSunlight() && this.stored < 20){
-			this.stored += 1;
+		if(isSunlight()){
+			for(IConnectable icb : this.con){
+				if(icb instanceof IPowerStorage){
+					if(((IPowerStorage) icb).getRoom()>=1){
+						((IPowerStorage) icb).charge(1);
+					}
+				}
+				if(icb instanceof ICable){
+					if(((ICable) icb).getPower() < 10){
+						((ICable) icb).setPower(((ICable) icb).getPower()+1);
+					}
+				}
+			}
 		}
 	}
 	

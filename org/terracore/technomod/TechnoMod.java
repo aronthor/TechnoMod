@@ -27,11 +27,10 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 
 @Mod(modid = "TechnoMod", name="TechnoMod", version="0.0.1")
-@NetworkMod(channels = {"TechnoMod"}, clientSideRequired = true, serverSideRequired = false)
+@NetworkMod(channels = {"TechnoMod"}, clientSideRequired = true, serverSideRequired = false, packetHandler=PacketHandler.class)
 public class TechnoMod {
 	
 	public static Assistant assist = new Assistant();
-	public static Object[] solder, power;
 	
 	@Instance("TechnoMod")
 	public static TechnoMod instance;
@@ -52,9 +51,7 @@ public class TechnoMod {
 	
 	@PreInit
 	public void PreInit(FMLPreInitializationEvent e){
-		
-		this.echo("TechnoMod Loading");
-		if(assist.DebugMode == true)this.echo("TechnoMod is in debug mode!");
+		if(Assistant.DebugMode)this.echo("TechnoMod is in debug mode!");
 		
 		configurator = new TechnoConfigurator(e.getSuggestedConfigurationFile());
 		configurator.loadConfigs();
@@ -71,54 +68,19 @@ public class TechnoMod {
 	public void Init(FMLInitializationEvent e){
 		serverproxy.loadTextureFiles();
 		
-		MinecraftForge.EVENT_BUS.register(new TechniEventHandler());
-		
 		NetworkRegistry.instance().registerGuiHandler(this, serverproxy);
-		TickRegistry.registerTickHandler(pn, Side.SERVER);
+		//TickRegistry.registerTickHandler(pn, Side.SERVER);
 		
 		TechnoBlocks.InitModBlocks();
 		TechnoItems.InitTechnoItems();
 		
 		GameRegistry.registerWorldGenerator(new WorldGenTechniCraft());
 		
-		
-		// Initialize Soldering
-		this.solder = new Object[]{
-				Item.ingotIron
-		};
-		
-		this.power = new Object[]{
-				Item.redstone
-		};
-		
-		//echo("TechniCraft Blocks and Items Loaded..");
-		
-		serverproxy.registerRenderInformation();
+		CraftHelper.instance.addSolderMaterial(Item.ingotIron);
+		CraftHelper.instance.addPowerMaterial(Item.redstone);
 	}
 
-	/*@PostInit
-	public void PostInit(FMLPostInitializationEvent e){
-		this.echo("TechniCraft Getting Ready...");
-	}*/
-	
 	public static void echo(String s){
-		System.out.println("[TechniCraft] "+s);
-	}
-
-	public static boolean isValidSolderMaterial(ItemStack item) {
-		for(int i=0;i<solder.length;i++){
-			if(solder[i] == item.getItem())
-				return true;
-		}
-		return false;
-	}
-
-	public static boolean getValidPowerSource(ItemStack item) {
-		for(int i=0;i<power.length;i++){
-			if(power[i] == item.getItem())
-				return true;
-		}
-		return false;
-	}
-	
+		System.out.println("[TechnoMod] "+s);
+	}	
 }

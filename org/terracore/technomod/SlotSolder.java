@@ -14,7 +14,7 @@ public class SlotSolder extends Slot{
 	
 	@Override
 	public boolean isItemValid(ItemStack item){
-        return TechnoMod.isValidSolderMaterial(item);
+        return CraftHelper.instance.checkForValidSolderMaterial(item);
     }
 
 }

@@ -25,8 +25,7 @@ public class TechnoBlocks {
 		GameRegistry.registerTileEntity(TileEntityElectricBench.class, "ElectricBench");
 		GameRegistry.registerTileEntity(TileEntityChargeBox.class, "ChargeBox");
 		GameRegistry.registerTileEntity(TileEntityLowTechSolarPanel.class, "LTSolarPanel");
-		GameRegistry.registerTileEntity(TileEntityMachine.class, "Machine");
-		ClientRegistry.registerTileEntity(TileEntityCable.class, "Cable", new TileEntitySpecialCableRenderer());
+		GameRegistry.registerTileEntity(TileEntityBasicMachine.class, "Machine");
 	}
 
 	private static void registerBlocks() {

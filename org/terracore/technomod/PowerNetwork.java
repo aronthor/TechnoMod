@@ -37,68 +37,20 @@ public class PowerNetwork implements ITickHandler{
 	
 	public void updateFlow(){
 		
-		// TODO ChargeBox to Machine
-		// TODO Cable to Machine
-		for(int i = 0; i < this.storage.size(); i++){ // Loop through Storage Units
-			IPowerStorage box = storage.get(i);
-			for(IConnectable icb : storage.get(i).getConnections()){
-				
-				if(icb instanceof ICable){ // Storage Unit To Cable
-					if(box.hasCharge(10)){
-						((ICable) icb).setPower(10);
-						box.drain(10);
-					}
-				}
-				
-				if(icb instanceof IPowerStorage){ // Storage Unit To Storage Unit
-					if(box.hasCharge(1)){
-						((IPowerStorage) icb).charge(1);
-						box.drain(1);
-					}
-				}
-			}
-		}
-		
-		for(int i = 0; i < this.cables.size(); i++){ // Loop through cables
-			ICable cable =  this.cables.get(i);
-			for(IConnectable icb : cable.getConnections()){
-				
-				if(icb instanceof ICable){ // Cable to Cable
-					if(cable.getPower() < 10 && ((ICable)icb).getPower() == 10){
-						cable.setPower(10);
-						((ICable) icb).setPower(10-cable.getPower());
-					}
-				}
-				
-				if(icb instanceof IPowerStorage){ // Cable to Storage Unit
-					if(cable.getPower() > 0){
-						((IPowerStorage) icb).charge(cable.getPower());
-						cable.setPower(0);
-					}
-				}
-			}
-		}
-		/*
-		for(int i = 0; i< this.gens.size(); i++){ // Loop through Power Gens
-			IPowerGenerator gen = this.gens.get(i);
+		/*for(int i = 0; i < gens.size(); i++){
+			IPowerGenerator gen = gens.get(i);
 			for(IConnectable icb : gen.getConnections()){
-				
-				if(icb instanceof ICable){ // Power Generator to Cable
-					if(gen.stored >= 10){
-						((ICable) icb).setPower(gen.stored);
-						gen.drain(gen.stored);
-					}
-				}
-				
-				if(icb instanceof IPowerStorage){ // Power Generator to Storage Unit
-					if(gen.stored >= 10){
-						((IPowerStorage) icb).charge(gen.stored);
-						gen.drain(gen.stored);
+				if(icb instanceof IPowerStorage){
+					if(((IPowerStorage) icb).getRoom() >= 10 && gen.getStored() >= 10){
+						TechnoMod.echo("Storage:"+((IPowerStorage)icb).getCharge()+", Gen:"+gen.getStored());
+						((IPowerStorage) icb).charge(10);
+						gen.drain(10);
 					}
 				}
 			}
-		}
-		*/
+			gen.updateConnections();
+		}*/
+		
 	}
 	
 	public static IConnectable[] updateConnected(World worldObj, int xCoord, int yCoord, int zCoord){

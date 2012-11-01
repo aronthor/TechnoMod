@@ -34,6 +34,7 @@ public class TileEntityChargeBox extends TileEntity implements IInventory, IPowe
 	}
 	
 	public void updateEntity() {
+		
 		this.connected = PowerNetwork.updateConnected(worldObj, this.xCoord, this.yCoord, this.zCoord);
 		
 		if(TechniPowerAssistant.isValidPowerItem(this.inventory[0]) && charge+TechniPowerAssistant.getPowerValue(this.inventory[0])<=max){
@@ -43,6 +44,19 @@ public class TileEntityChargeBox extends TileEntity implements IInventory, IPowe
 			else
 				this.inventory[0] = null;
 		}
+		
+		if(this.charge>1){
+			for(IConnectable icb : this.connected){
+				if(icb instanceof ICable){
+					if(((ICable) icb).getPower() < 10){
+						((ICable) icb).setPower(((ICable) icb).getPower()+1);
+						this.charge -= 1;
+					}
+				}
+			}
+		}
+			
+		
 		/*if(isConnectedToPower()){
 			TileEntityCable cable = findFirstCable();
 			if(this.charge < this.max - 10){
@@ -260,6 +274,11 @@ public class TileEntityChargeBox extends TileEntity implements IInventory, IPowe
 	@Override
 	public IConnectable[] getConnections() {
 		return this.connected;
+	}
+	
+	@Override
+	public int getRoom(){
+		return this.max-this.charge;
 	}
 	
 }

@@ -80,7 +80,7 @@ public class SlotElectricCrafting extends Slot
      * Called when the player picks up an item from an inventory slot
      */
     @Override
-    public void func_82870_a(EntityPlayer par1EntityPlayer, ItemStack par2ItemStack)
+    public void onPickupFromSlot(EntityPlayer par1EntityPlayer, ItemStack par2ItemStack)
     {
         GameRegistry.onItemCrafted(par1EntityPlayer, par2ItemStack, craftMatrix);
         this.onCrafting(par2ItemStack);

@@ -7,7 +7,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 public class TechnoItems {
 	
 	// Mod Items !!
-	public static Item DebugBook, Circuits;
+	public static Item DebugBook, Circuits, ScrewDriver;
 	
 	public static void InitTechnoItems(){
 		initItems();
@@ -18,8 +18,11 @@ public class TechnoItems {
 		if(TechnoMod.assist.DebugMode){ // Debug Items
 			LanguageRegistry.addName(DebugBook, "Debuggers Book");
 		}
-		
+		// Circuits
 		LanguageRegistry.addName(new ItemStack(Circuits, 0, 1), "Basic Circuit");
+		
+		LanguageRegistry.addName(ScrewDriver, "Screw Driver");
+		
 	}
 
 	private static void initItems() {
@@ -27,6 +30,8 @@ public class TechnoItems {
 		
 		// Circuits
 		Circuits = new ItemCircuit(TechnoMod.configurator.getItemId(1)).setItemName("Circuits");
+		// Tools
+		ScrewDriver = new ItemScrewDriver(TechnoMod.configurator.getItemId(2)).setItemName("ScrewDriver");
 	}
 	
 }

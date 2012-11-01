@@ -7,5 +7,6 @@ public interface IPowerStorage extends IConnectable {
 	public boolean hasCharge(int volt);
 	public int getCharge();
 	public int getMaxCharge();
+	public int getRoom();
 	
 }

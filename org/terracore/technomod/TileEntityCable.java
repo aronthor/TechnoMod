@@ -32,7 +32,22 @@ public class TileEntityCable extends TileEntity implements IConnectable, ICable 
 	@Override
 	public void updateEntity(){
 		this.connected = PowerNetwork.updateConnected(worldObj, this.xCoord, this.yCoord, this.zCoord);
-		
+		//if(this.heldPower>1){
+			for(IConnectable icb : this.connected){
+				if(icb instanceof IPowerStorage){
+					if(((IPowerStorage) icb).getRoom()>=this.heldPower){
+						((IPowerStorage) icb).charge(this.heldPower);
+						this.heldPower = 0;
+					}
+				}
+				if(icb instanceof ICable){
+					if(((ICable) icb).getPower() < 10){
+						((ICable) icb).setPower(((ICable) icb).getPower()+1);
+						this.heldPower -= 1;
+					}
+				}
+			}
+		//}
 	}
 	
 	/*public void updatePowerFlow(){

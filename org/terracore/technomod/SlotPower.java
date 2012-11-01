@@ -15,7 +15,7 @@ public class SlotPower extends Slot {
 	
 	@Override
 	public boolean isItemValid(ItemStack item){
-        return TechnoMod.getValidPowerSource(item);
+        return CraftHelper.instance.checkForValidPowerMaterial(item);
 	}
 
 }

@@ -32,7 +32,7 @@ public class GuiChargeBox extends GuiContainer{
         this.fontRenderer.drawString("Charge Box", 60, 6, 4210752);
         this.fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
         
-        this.fontRenderer.drawString(this.te.charge+" V", 54, 36, 0x000000);
+        this.fontRenderer.drawString(this.te.getCharge()+" V", 54, 36, 0x000000);
     }
 	
 	@Override
